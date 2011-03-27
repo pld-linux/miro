@@ -1,7 +1,7 @@
 Summary:	Miro Player
 Name:		miro
 Version:	3.5
-Release:	0.3
+Release:	0.7
 License:	GPL v2+
 Group:		X11/Applications/Multimedia
 URL:		http://www.getmiro.com/
@@ -59,7 +59,11 @@ cd ..
 
 %{__sed} -i -e 's,miro-72x72.png,%{name},g' $RPM_BUILD_ROOT%{_desktopdir}/*.desktop
 
+rm -f $RPM_BUILD_ROOT%{_mandir}/man1/miro.real.1*
+mv -f $RPM_BUILD_ROOT%{_bindir}/miro{.real,}
+
 %{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/miro/test
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/miro/resources/testdata
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -78,22 +82,30 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README CREDITS
 %attr(755,root,root) %{_bindir}/miro
-%attr(755,root,root) %{_bindir}/miro.real
 %{_datadir}/miro
 %{_desktopdir}/*.desktop
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_pixmapsdir}/*.xpm
 %{_mandir}/man1/miro.1*
-%{_mandir}/man1/miro.real.1*
 %{_datadir}/mime/packages/*.xml
 %dir %{py_sitedir}/miro
 %{py_sitedir}/miro/*.py[co]
 %{py_sitedir}/miro/dl_daemon
-%{py_sitedir}/miro/frontends
-%{py_sitedir}/miro/plat/frontends
-%{py_sitedir}/miro/plat/renderers
+%dir %{py_sitedir}/miro/frontends
+%{py_sitedir}/miro/frontends/*.py[co]
+%dir %{py_sitedir}/miro/frontends/widgets
+%{py_sitedir}/miro/frontends/widgets/*.py[co]
+%dir %{py_sitedir}/miro/frontends/widgets/gtk
+%{py_sitedir}/miro/frontends/widgets/gtk/*.py[co]
+%attr(755,root,root) %{py_sitedir}/miro/frontends/widgets/gtk/pygtkhacks.so
+%attr(755,root,root) %{py_sitedir}/miro/frontends/widgets/gtk/webkitgtkhacks.so
+%{py_sitedir}/miro/frontends/cli
+%{py_sitedir}/miro/frontends/shell
+%dir %{py_sitedir}/miro/plat
 %{py_sitedir}/miro/plat/*.py[co]
 %attr(755,root,root) %{py_sitedir}/miro/plat/xlibhelper.so
+%{py_sitedir}/miro/plat/frontends
+%{py_sitedir}/miro/plat/renderers
 %if "%{py_ver}" > "2.4"
 %{py_sitedir}/miro-%{version}-*.egg-info
 %endif
