@@ -1,12 +1,12 @@
 Summary:	Miro Player
 Name:		miro
-Version:	3.5
-Release:	0.7
+Version:	3.5.1
+Release:	0.9
 License:	GPL v2+
 Group:		X11/Applications/Multimedia
 URL:		http://www.getmiro.com/
 Source0:	ftp://ftp.osuosl.org/pub/pculture.org/miro/src/%{name}-%{version}.tar.gz
-# Source0-md5:	6e15d2d6ce086b0fe943a6cbea3c363c
+# Source0-md5:	c4f22333da18bba48eadc65b9b05bfcc
 BuildRequires:	ImageMagick
 BuildRequires:	gtk-webkit-devel
 BuildRequires:	python-Pyrex
